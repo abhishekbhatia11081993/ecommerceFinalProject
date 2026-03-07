@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="~{fragments/header :: head}" />
+    <title>My Account | Shop+</title>
+</head>
+<body>
+
+    <th:block th:replace="~{fragments/header :: header}" />
+
+    <div class="pg-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 title">
+                    <h1>My Account</h1>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="b-crumbs pull-right">
+                        <a th:href="@{/products}">Home</a> <i class="arrow_carrot-right"></i> My Account
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pg-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-2 left-menu">
+                    <a th:href="@{/account}"><div class="active"><i class="icon-user"></i><br><span>YOUR PROFILE</span></div></a>
+                    <a th:href="@{/products}"><div><i class="icon-bag"></i><br><span>PRODUCTS</span></div></a>
+                    <a th:href="@{/logout}"><div><i class="icon-logout"></i><br><span>LOGOUT</span></div></a>
+                </div>
+                <div class="col-md-10 col-sm-12 col-xs-12">
+                    <div th:if="${user != null}">
+                        <div style="background:#f8f8f8; padding:30px; margin-bottom:30px;">
+                            <h4>Welcome, <span th:text="${user.fullName}" style="color:#dccc99;">User</span></h4>
+                            <p>Manage your personal information below.</p>
+                        </div>
+
+                        <h6 class="account-table-head">PERSONAL DETAILS</h6>
+                        <div style="padding:20px 0;">
+                            <table style="width:100%; max-width:500px;">
+                                <tr>
+                                    <td style="padding:10px 0; color:#999; width:150px; vertical-align:top;">Full Name</td>
+                                    <td style="padding:10px 0; font-weight:400;" th:text="${user.fullName}">John Doe</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:10px 0; color:#999; vertical-align:top;">Email</td>
+                                    <td style="padding:10px 0; font-weight:400;" th:text="${user.email}">john@example.com</td>
+                                </tr>
+                                <tr th:if="${user.phone != null}">
+                                    <td style="padding:10px 0; color:#999; vertical-align:top;">Phone</td>
+                                    <td style="padding:10px 0; font-weight:400;" th:text="${user.phone}">+1234567890</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:10px 0; color:#999; vertical-align:top;">Role</td>
+                                    <td style="padding:10px 0; font-weight:400;" th:text="${user.role}">ROLE_USER</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="margin-top:20px;">
+                            <a th:href="@{/products}" class="btn btn-lg btn-sec-col"><i class="icon-bag"></i> BROWSE PRODUCTS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragments/header :: footer}" />
+    <th:block th:replace="~{fragments/header :: scripts}" />
+</body>
+</html>

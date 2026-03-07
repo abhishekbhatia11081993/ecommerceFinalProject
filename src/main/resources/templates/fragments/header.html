@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link th:href="@{/font-face/helvetica.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link th:href="@{/css/vendor/validation-engine.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <link th:href="@{/fonts/simple-line-icons.css}" rel="stylesheet">
+    <link th:href="@{/fonts/elegant-icons.css}" rel="stylesheet">
+</head>
+<body>
+<header th:fragment="header">
+    <div id="top-bar">
+        <div class="container">
+            <div class="pull-left left-top-bar">
+                <div id="top-contacts">
+                    <ul class="list-inline">
+                        <li class="hidden-xs">
+                            <i class="icon-call-in"></i>
+                            <span>+ 1 (800) 2364 332 23 16</span>
+                        </li>
+                        <li class="hidden-xs">
+                            <a href="mailto:your@email.com">
+                                <i class="icon-envelope"></i>
+                                <span class="hidden-xs">support@shopplus.com</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pull-right">
+                <div id="user-top-bar">
+                    <ul class="list-inline">
+                        <li class="btn-group dropdown" sec:authorize="!isAuthenticated()">
+                            <a th:href="@{/login}" class="pm_item" title="login">
+                                <i class="icon-login"></i>
+                                <span class="hidden-sm hidden-xs">Login</span>
+                            </a>
+                        </li>
+                        <li class="btn-group dropdown" sec:authorize="isAuthenticated()">
+                            <a href="#" class="pm_item" data-toggle="dropdown" title="Account">
+                                <i class="icon-user"></i>
+                                <span class="hidden-sm hidden-xs" sec:authentication="name">User</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                <span class="dropdown-triangle-up"></span>
+                                <div class="dd-wrapper" style="padding:15px;">
+                                    <a th:href="@{/account}" class="btn btn-sm btn-third-col" style="display:block; margin-bottom:8px;">My Account</a>
+                                    <a th:href="@{/logout}" class="btn btn-sm btn-sec-col" style="display:block;">Logout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="header-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 top-search-box hidden-sm hidden-xs">
+                    <form th:action="@{/products}" method="get">
+                        <div class="required form-group">
+                            <input type="text" name="keyword" placeholder="Search products..." class="placeholder-fix top-search" autocomplete="off">
+                            <button type="submit"><i class="icon_search field-icon"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div id="header-logo" class="col-md-6 col-sm-12">
+                    <a th:href="@{/products}">
+                        <h2 class="text-center" style="font-family: HelveticaNeue, Arial; font-weight:300; letter-spacing:3px; margin:15px 0;">SHOP<span style="color:#dccc99;">+</span></h2>
+                    </a>
+                </div>
+                <div class="col-md-3 hidden-sm hidden-xs">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="top-menu">
+        <div class="container">
+            <nav class="main-menu">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a th:href="@{/products}"><i class="icon-screen-desktop"></i> All Products</a>
+                    </li>
+                    <li class="nav-item" th:each="cat : ${@productService.getAllCategories()}">
+                        <a th:href="@{/products(category=${cat})}"><span th:text="${cat}">Category</span></a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}"><span><i class="icon-login"></i> Login</span></a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/account}"><span><i class="icon-user"></i> My Account</span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="mobile-menu">
+        <nav>
+            <div class="mobile-menu-button">
+                MENU
+                <a href="#" class="mobile-menu-toggler"><span></span><span></span><span></span></a>
+            </div>
+            <div class="mobile-menu-body">
+                <div class="mobile-menu-search clearfix">
+                    <form th:action="@{/products}" method="get">
+                        <div class="form-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="Search products...">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                    </form>
+                </div>
+                <ul>
+                    <li><a th:href="@{/products}"><i class="icon-home"></i> All Products</a></li>
+                    <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}"><i class="icon-login"></i> Login</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/account}"><i class="icon-user"></i> Account</a></li>
+                    <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}"><i class="icon-logout"></i> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<footer th:fragment="footer">
+    <div id="footer-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-12">
+                    <div class="information-box mobile-collapse">
+                        <div class="title-type-2 mobile-collapse-header">Information</div>
+                        <ul class="list-unstyled mobile-collapse-body">
+                            <li><a th:href="@{/products}">All Products</a></li>
+                            <li><a th:href="@{/products(category='Clothing')}">Clothing</a></li>
+                            <li><a th:href="@{/products(category='Electronics')}">Electronics</a></li>
+                            <li><a th:href="@{/products(category='Accessories')}">Accessories</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="my-account-box mobile-collapse">
+                        <div class="title-type-2 mobile-collapse-header">My Account</div>
+                        <ul class="list-unstyled mobile-collapse-body">
+                            <li><a th:href="@{/login}">Login</a></li>
+                            <li><a th:href="@{/register}">Register</a></li>
+                            <li><a th:href="@{/account}">My Account</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="contact-info-box mobile-collapse">
+                        <div class="title-type-2 mobile-collapse-header">Contact Info</div>
+                        <ul class="list-unstyled mobile-collapse-body">
+                            <li><span><i class="icon-pointer"></i></span><span> Shop+, Valencia Road, Dumaguete City</span></li>
+                            <li><span><i class="icon-screen-smartphone"></i></span><span> +1800-555-6875</span></li>
+                            <li><a href="mailto:support@shopplus.com"><span><i class="icon-envelope"></i></span><span> support@shopplus.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer-5">
+        <div class="container">
+            <p class="copyright text-center">
+                &copy; 2026 Shop+. All rights reserved.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<div th:fragment="scripts">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+</div>
+</body>
+</html>

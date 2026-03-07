@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/header :: head}" />
+    <title>Error | Shop+</title>
+</head>
+<body>
+
+    <th:block th:replace="~{fragments/header :: header}" />
+
+    <div class="pg-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 title">
+                    <h1>Oops!</h1>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="b-crumbs pull-right">
+                        <a th:href="@{/products}">Home</a> <i class="arrow_carrot-right"></i> Error
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pg-body">
+        <div class="container">
+            <div class="text-center" style="padding:60px 0;">
+                <h2 style="font-size:72px; color:#ddd; margin-bottom:20px;" th:text="${status ?: '404'}">404</h2>
+                <h3>Something went wrong</h3>
+                <p th:text="${error ?: 'The page you are looking for might not exist.'}">Error message</p>
+                <a th:href="@{/products}" class="btn btn-lg btn-third-col" style="margin-top:20px;">Go to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragments/header :: footer}" />
+    <th:block th:replace="~{fragments/header :: scripts}" />
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="~{fragments/header :: head}" />
+    <title>Login | Shop+</title>
+</head>
+<body>
+
+    <th:block th:replace="~{fragments/header :: header}" />
+
+    <div class="pg-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 title">
+                    <h1>Sign In</h1>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="b-crumbs pull-right">
+                        <a th:href="@{/products}">Home</a> <i class="arrow_carrot-right"></i> Login
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pg-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div style="padding: 40px 0;">
+                        <h3 class="text-center" style="margin-bottom:30px;">Welcome Back</h3>
+
+                        <div th:if="${errorMessage}" class="alert alert-danger" style="border-radius:0; border:none; background:#f2dede; color:#a94442; padding:12px 15px;">
+                            <span th:text="${errorMessage}"></span>
+                        </div>
+                        <div th:if="${successMessage}" class="alert alert-success" style="border-radius:0; border:none; background:#dff0d8; color:#3c763d; padding:12px 15px;">
+                            <span th:text="${successMessage}"></span>
+                        </div>
+                        <div th:if="${param.error}" class="alert alert-danger" style="border-radius:0; border:none; background:#f2dede; color:#a94442; padding:12px 15px;">
+                            Invalid email or password!
+                        </div>
+                        <div th:if="${param.logout}" class="alert alert-success" style="border-radius:0; border:none; background:#dff0d8; color:#3c763d; padding:12px 15px;">
+                            You have been logged out successfully.
+                        </div>
+
+                        <form th:action="@{/login}" method="post">
+                            <div class="required form-group">
+                                <label class="type-text">Email *</label>
+                                <input type="email" name="username" class="form-control placeholder-fix" placeholder="Enter your email" required>
+                                <i class="icon_mail field-icon"></i>
+                            </div>
+                            <div class="required form-group">
+                                <label class="type-text">Password *</label>
+                                <input type="password" name="password" class="form-control placeholder-fix" placeholder="Enter your password" required>
+                                <i class="icon_lock field-icon"></i>
+                            </div>
+                            <div class="form-group text-center" style="margin-top:25px;">
+                                <button type="submit" class="btn btn-lg btn-third-col" style="min-width:200px;">LOGIN</button>
+                            </div>
+                            <div class="text-center" style="margin-top:15px;">
+                                <span>Don't have an account? </span>
+                                <a th:href="@{/register}" class="active" style="font-weight:600;">Register here</a>
+                            </div>
+                        </form>
+
+                        <div style="margin-top:30px; text-align:center; color:#999; font-size:12px;">
+                            <p><strong>Demo Credentials:</strong></p>
+                            <p>Email: <code>john@example.com</code> | Password: <code>password123</code></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragments/header :: footer}" />
+    <th:block th:replace="~{fragments/header :: scripts}" />
+</body>
+</html>
