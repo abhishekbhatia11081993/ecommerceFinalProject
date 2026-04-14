@@ -1,0 +1,29 @@
+erDiagram
+    USERS {
+        BIGINT id PK
+        VARCHAR email "UNIQUE, NOT NULL"
+        VARCHAR password "BCrypt hash, NOT NULL"
+        VARCHAR fullName "NOT NULL"
+        VARCHAR phone
+        VARCHAR role "ROLE_USER / ROLE_ADMIN"
+    }
+
+    PRODUCTS {
+        BIGINT id PK
+        VARCHAR name "NOT NULL"
+        VARCHAR description "length 2000"
+        DECIMAL price "NOT NULL"
+        DECIMAL oldPrice
+        VARCHAR category
+        VARCHAR brand
+        VARCHAR imageUrl
+        VARCHAR imageUrl2
+        BOOLEAN featured
+        BOOLEAN newArrival
+        BOOLEAN onSale
+        INT stockQuantity
+        DOUBLE rating
+    }
+
+    %% Current scope: no direct relationship between USERS and PRODUCTS.
+    %% Future scope can introduce ORDERS and ORDER_ITEMS for user-product linkage.
